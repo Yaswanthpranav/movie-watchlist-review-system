@@ -19,16 +19,9 @@
 - [Database Design](#database-design)
 - [Key Database Rules](#key-database-rules)
 - [Application Workflows](#application-workflows)
-- [Repository Structure](#repository-structure)
-- [Prerequisites](#prerequisites)
-- [Setup and Local Execution](#setup-and-local-execution)
 - [Configuration](#configuration)
 - [Planned SQL and DBMS Demonstrations](#planned-sql-and-dbms-demonstrations)
-- [Project Progress](#project-progress)
-- [Testing Checklist](#testing-checklist)
-- [Security and Data Handling](#security-and-data-handling)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ---
 
@@ -200,9 +193,4 @@ The final project is intended to demonstrate a variety of database concepts, sub
 - **Triggers or stored routines:** Add only where they solve a clear requirement and can be explained during evaluation.
 
 The exact set of advanced queries and DBMS features should follow the course rubric. Do not mark an item complete until its SQL and demonstration have been tested.
-
-## Project Progress
-
-Update this checklist as work is completed and verified. The initial state below is intentionally marked as pending because the implementation is about to begin.
-
 

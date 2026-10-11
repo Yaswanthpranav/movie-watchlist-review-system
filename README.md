@@ -52,17 +52,15 @@ The initial catalogue is intended to support **English, Hindi, and Telugu** movi
 - **Rating summaries:** Display aggregate ratings, such as the average rating and number of reviews.
 - **Relational integrity:** Use constraints and transactions to maintain consistent data.
 
-> These are project goals, not a claim that every feature is already implemented. See [Project Progress](#project-progress) for the current checklist.
 
 ## Team Information and Contributions
 
 | Team Member | Student ID | Responsibilities and Contributions |
 |---|---|---|
-| **[Your Name]** | `[Your Student ID]` | Repository setup, Git/GitHub coordination, README maintenance|
-| **[Teammate 1 Name]** | `[Student ID]` | ER/EER diagram, relationship cardinalities, relational schema, normalization analysis, keys, and integrity constraints.|
-| **[Teammate 2 Name]** | `[Student ID]` | Project integration |
-| **Devanshi Patnaik** | `2024A4PS0541H` | Requirements analysis, Database blueprint |
-| **[Teammate 3 Name]** | `[Student ID]` | Application architecture, API planning, frontend design, and workflow documentation. |
+| **MUMMADI YASWANTH PRANAV** | `2024A4PS0651H` | Repository setup, Git/GitHub coordination, README maintenance|
+| **ANISHA POTDAR** | `2024A3PS2052H` | ER/EER diagram, relationship cardinalities, relational schema, normalization analysis, keys, and integrity constraints.|
+| **RAJ PARAB** | `2024A3PS0433H` | Project integration |
+| **DEVANSHI PATNAIK** | `2024A4PS0541H` | Requirements analysis, Database blueprint |
 
 ## Technology Stack
 

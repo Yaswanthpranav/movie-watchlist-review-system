@@ -114,7 +114,7 @@ The proposed logical design contains **10 relations**. Final column definitions 
 | 3. | `Movies` | Stores movie metadata such as title, synopsis, runtime, and release year. | `movie_id` (PK); `language_id` (FK → `Languages.language_id`) |
 | 4. | `Genres` | Master list of movie genres. | `genre_id` (PK) |
 | 5. | `MovieGenres` | Connects movies and genres in a many-to-many relationship. | Composite PK (`movie_id`, `genre_id`); both columns are FKs |
-| 6. | `Watchlist` | Stores the watchlists created by users. | `actor_id` (PK) | `watchlist_id` (PK); `user_id` (FK → `Users.user_id`) |
+| 6. | `Watchlist` | Stores the watchlists created by users. | `watchlist_id` (PK) | `watchlist_id` (PK); `user_id` (FK → `Users.user_id`) |
 | 7. | `WatchlistItems` | Records movies saved by users. | Composite PK (`user_id`, `movie_id`); both columns are FKs |
 | 8. | `StreamingPlatforms` | Stores information about streaming services, such as Netflix and Prime Video. | `streaming_platform_id` (PK) |
 | 9. | `MoviePlatforms` | Connects movies to the streaming platforms on which they are available. | Composite PK (`movie_id`, `platform_id`); both columns are FKs|

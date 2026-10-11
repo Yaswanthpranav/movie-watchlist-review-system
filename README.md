@@ -61,6 +61,7 @@ The initial catalogue is intended to support **English, Hindi, and Telugu** movi
 | **ANISHA POTDAR** | `2024A3PS2052H` | ER/EER diagram, relationship cardinalities, relational schema, normalization analysis, keys, and integrity constraints.|
 | **RAJ PARAB** | `2024A3PS0433H` | Project integration |
 | **DEVANSHI PATNAIK** | `2024A4PS0541H` | Requirements analysis, Database blueprint |
+|**VEER PAREKH**| `2024A3PS0430H` | ER/EER diagram, relationship cardinalities |
 
 ## Technology Stack
 

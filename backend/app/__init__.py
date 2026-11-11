@@ -1,0 +1,1 @@
+"""CineTrack backend application package."""

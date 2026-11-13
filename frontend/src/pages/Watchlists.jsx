@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { api } from "../api.js";
-import Poster from "../components/Poster.jsx";
+import Shelves from "../components/Shelves.jsx";
 import { useToast } from "../toast.jsx";
-import { fmtDate, plural } from "../utils.js";
+import { plural } from "../utils.js";
 
 export default function Watchlists() {
   const toast = useToast();
@@ -127,30 +126,7 @@ export default function Watchlists() {
             <p className="notice">No watchlists yet. Name your first one to start saving films.</p>
           )}
           {lists && lists.length > 0 && (
-            <ul className="shelves">
-              {lists.map((l) => {
-                const films = previews[l.watchlist_id] ?? [];
-                return (
-                  <li key={l.watchlist_id}>
-                    <Link to={`/watchlists/${l.watchlist_id}`} className="shelf">
-                      <div className="shelf-posters" aria-hidden="true">
-                        {films.slice(0, 5).map((m) => (
-                          <Poster key={m.movie_id} movie={m} size="xs" />
-                        ))}
-                        {films.length === 0 && <span className="poster-slot">Empty</span>}
-                      </div>
-                      <div className="shelf-text">
-                        <h2>{l.watchlist_name}</h2>
-                        <p className="muted">
-                          {plural(l.item_count, "film")}, started {fmtDate(l.create_date)}
-                        </p>
-                        {l.notes && <p className="shelf-notes">{l.notes}</p>}
-                      </div>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
+            <Shelves lists={lists} previews={previews} />
           )}
         </section>
 

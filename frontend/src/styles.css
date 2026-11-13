@@ -176,8 +176,102 @@ a {
   gap: 8px;
 }
 .account-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-weight: 600;
-  padding-right: 4px;
+  text-decoration: none;
+  color: var(--ink);
+  padding: 4px 12px 4px 4px;
+  border-radius: 999px;
+}
+.account-name:hover,
+.account-name.active {
+  background: var(--soft);
+}
+.account-initial {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: inline-grid;
+  place-items: center;
+  background: var(--saffron);
+  color: var(--ink);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+/* ---------- Profile ---------- */
+
+.profile-head {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 32px 0 28px;
+}
+.profile-head > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.profile-head h1 {
+  overflow-wrap: anywhere;
+}
+.profile-avatar {
+  flex: none;
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--saffron);
+  color: var(--ink);
+  font-variation-settings: "wdth" 62;
+  font-weight: 900;
+  font-size: 3.4rem;
+  line-height: 1;
+}
+.stat-strip {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  margin: 0 0 56px;
+  border-top: 1.5px solid var(--line);
+  border-bottom: 1.5px solid var(--line);
+}
+.stat-strip > div {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  padding: 18px 0;
+}
+.stat-strip > div + div {
+  padding-left: 20px;
+  border-left: 1.5px solid var(--line);
+}
+.stat-strip dd {
+  margin: 0;
+  font-variation-settings: "wdth" 62;
+  font-weight: 850;
+  font-size: 2.6rem;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.stat-strip dt {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.section-head h2 {
+  margin: 0;
+  font-size: 1.35rem;
 }
 
 /* ---------- Controls ---------- */
@@ -1296,6 +1390,40 @@ textarea {
     flex-direction: column;
     align-items: flex-start;
     gap: 14px;
+  }
+  .shelf-posters {
+    width: auto;
+  }
+  .profile-head {
+    gap: 16px;
+  }
+  .profile-avatar {
+    width: 64px;
+    height: 64px;
+    font-size: 2.3rem;
+  }
+  /* Two totals on top, the three statuses below. */
+  .stat-strip {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin-bottom: 40px;
+  }
+  .stat-strip > div,
+  .stat-strip > div + div {
+    grid-column: span 2;
+    padding: 14px 0 14px 12px;
+    border-left: 1.5px solid var(--line);
+  }
+  .stat-strip > div:nth-child(-n + 2) {
+    grid-column: span 3;
+    border-bottom: 1.5px solid var(--line);
+  }
+  .stat-strip > div:nth-child(1),
+  .stat-strip > div:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .stat-strip dd {
+    font-size: 2rem;
   }
 }
 

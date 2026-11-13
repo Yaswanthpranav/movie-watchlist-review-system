@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar.jsx";
 import AuthPage from "./pages/AuthPage.jsx";
 import Catalog from "./pages/Catalog.jsx";
 import MovieDetail from "./pages/MovieDetail.jsx";
+import Profile from "./pages/Profile.jsx";
 import TopRated from "./pages/TopRated.jsx";
 import WatchlistDetail from "./pages/WatchlistDetail.jsx";
 import Watchlists from "./pages/Watchlists.jsx";
@@ -30,6 +31,14 @@ export default function App() {
           <Route path="/top-rated" element={<TopRated />} />
           <Route path="/login" element={<AuthPage mode="login" />} />
           <Route path="/register" element={<AuthPage mode="register" />} />
+          <Route
+            path="/profile"
+            element={
+              <RequireAuth>
+                <Profile />
+              </RequireAuth>
+            }
+          />
           <Route
             path="/watchlists"
             element={

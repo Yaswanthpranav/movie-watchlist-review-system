@@ -6,6 +6,26 @@ import Pagination from "../components/Pagination.jsx";
 import { plural, SORTS } from "../utils.js";
 
 const PAGE_SIZE = 12;
+const BACKEND_MAX_PAGE = 100; // GET /movies allows page_size up to 100
+
+// "4 stars" means an average from 4.0 up to (not including) 5.0.
+// The backend only offers min_rating (average >= N), so fetch every film with
+// average >= N, drop the ones that reach N + 1, then page through the rest here.
+async function fetchStarBucket(filters, stars, page) {
+  const all = [];
+  for (let p = 1; ; p += 1) {
+    const res = await api.movies({ ...filters, min_rating: stars, page: p, page_size: BACKEND_MAX_PAGE });
+    all.push(...res.items);
+    if (all.length >= res.total || res.items.length === 0) break;
+  }
+  const inBucket = all.filter((m) => m.average_rating != null && m.average_rating < stars + 1);
+  return {
+    items: inBucket.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
+    total: inBucket.length,
+    page,
+    page_size: PAGE_SIZE,
+  };
+}
 
 export default function Catalog() {
   const [params, setParams] = useSearchParams();
@@ -14,7 +34,7 @@ export default function Catalog() {
   const language = params.get("language") || "";
   const platform = params.get("platform") || "";
   const year = params.get("year") || "";
-  const minRating = params.get("min_rating") || "";
+  const stars = params.get("stars") || "";
   const sort = params.get("sort") || "title_asc";
   const page = Number(params.get("page")) || 1;
 
@@ -65,18 +85,11 @@ export default function Catalog() {
   useEffect(() => {
     let alive = true;
     setError("");
-    api
-      .movies({
-        search: q,
-        genre_id: genre,
-        language_id: language,
-        platform_id: platform,
-        year,
-        min_rating: minRating,
-        sort,
-        page,
-        page_size: PAGE_SIZE,
-      })
+    const filters = { search: q, genre_id: genre, language_id: language, platform_id: platform, year, sort };
+    const request = stars
+      ? fetchStarBucket(filters, Number(stars), page)
+      : api.movies({ ...filters, page, page_size: PAGE_SIZE });
+    request
       .then((res) => alive && setData(res))
       .catch((e) => alive && setError(e.message));
     return () => {
@@ -85,7 +98,8 @@ export default function Catalog() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [queryKey, reloadKey]);
 
-  const filtered = q || genre || language || platform || year || minRating;
+  const filtered = q || genre || language || platform || year || stars;
+  const starRange = stars === "5" ? "a perfect 5.0" : stars ? `${stars}.0 to ${stars}.9` : "";
 
   return (
     <>
@@ -145,15 +159,13 @@ export default function Catalog() {
             </label>
             <label className="inline-field">
               <span>Rated</span>
-              <select
-                className="select"
-                value={minRating}
-                onChange={(e) => update({ min_rating: e.target.value, page: "" })}
-              >
+              <select className="select" value={stars} onChange={(e) => update({ stars: e.target.value, page: "" })}>
                 <option value="">Any rating</option>
-                <option value="4">4★ and up</option>
-                <option value="3">3★ and up</option>
-                <option value="2">2★ and up</option>
+                {[5, 4, 3, 2, 1].map((n) => (
+                  <option key={n} value={n}>
+                    {n} ★
+                  </option>
+                ))}
               </select>
             </label>
             <label className="inline-field">
@@ -195,7 +207,10 @@ export default function Catalog() {
       {!error && data && (
         <>
           <div className="count-line">
-            <p>{plural(data.total, "film")}</p>
+            <p>
+              {plural(data.total, "film")}
+              {stars && `, rated ${starRange}`}
+            </p>
             {filtered && (
               <button type="button" className="btn btn-text" onClick={() => setParams(new URLSearchParams())}>
                 Clear filters

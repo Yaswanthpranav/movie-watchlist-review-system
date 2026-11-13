@@ -20,7 +20,12 @@ export default function Navbar() {
       <div className="account">
         {user ? (
           <>
-            <span className="account-name">{user.username}</span>
+            <NavLink to="/profile" className="account-name" title="Your profile">
+              <span className="account-initial" aria-hidden="true">
+                {user.username.slice(0, 1).toUpperCase()}
+              </span>
+              {user.username}
+            </NavLink>
             <button
               type="button"
               className="btn btn-text"

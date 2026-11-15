@@ -1,6 +1,7 @@
 # CineTrack – SQL Query Documentation
 
 ### Query 01: Display All Movies
+```
 SELECT
     m.movie_id,
     m.title,
@@ -13,28 +14,36 @@ FROM movie m
 JOIN language l
     ON m.language_id = l.language_id
 ORDER BY m.title ASC
+```
 
 ### Query 02: Search Movies by Title
+```
 SELECT *
 FROM movie
 WHERE title ILIKE '%' || $1 || '%'
 ORDER BY title;
+```
 
 ### Query 03: Genre Dropdown
+```
 SELECT
     genre_id,
     genre_name
 FROM genre
 ORDER BY genre_name;
+```
 
 ### Query 04: Streaming Platform Dropdown
+```
 SELECT
     streaming_platform_id,
     streaming_platform_name
 FROM streaming_platform
 ORDER BY streaming_platform_name;
+```
 
 ### Query 05: Rating Handeling
+```
 SELECT
     m.movie_id,
     m.title,
@@ -57,8 +66,10 @@ HAVING
 
 ORDER BY
     avg_rating DESC;
+```
 
 ### Query 06: Year
+```
 SELECT
     m.movie_id,
     m.title,
@@ -76,15 +87,14 @@ WHERE
     (NULLIF($1, '') IS NULL
      OR m.title ILIKE '%' || $1 || '%')
 
-    AND ($2::INT IS NULL
+AND ($2::INT IS NULL
          OR EXISTS (
              SELECT 1
              FROM movie_genre mg
              WHERE mg.movie_id = m.movie_id
              AND mg.genre_id = $2
          ))
-
-    AND ($3::INT IS NULL
+ AND ($3::INT IS NULL
          OR EXISTS (
              SELECT 1
              FROM movie_platform mp
@@ -92,10 +102,12 @@ WHERE
              AND mp.platform_id = $3
          ))
 
-    AND ($4::INT IS NULL
+   AND ($4::INT IS NULL
          OR m.release_yr = $4);
+```         
 
 ### Query 07: Combined Display
+```
 SELECT
     m.movie_id,
     m.title,
@@ -178,8 +190,10 @@ ORDER BY
     END DESC NULLS LAST,
 
     m.title ASC;
+```
 
 ### Query 08: Top Rated
+```
 SELECT
     movie_id,
     title,
@@ -197,8 +211,10 @@ ORDER BY
     title ASC
 
 LIMIT 10;
+```
 
 ### Query 09: Movie Details
+```
 WITH movie_genres AS (
     SELECT
         mg.movie_id,
@@ -300,8 +316,10 @@ LEFT JOIN movie_reviews mr
     ON m.movie_id = mr.movie_id
 
 WHERE m.movie_id = $1;
+```
 
 ### Query 10: Retrieve User Profile
+```
 SELECT
     user_id,
     username,
@@ -309,8 +327,10 @@ SELECT
     create_date
 FROM "user"
 WHERE auth_user_id = auth.uid();
+```
 
 ### Query 11: Create User Profile
+```
 INSERT INTO "user" (
     auth_user_id,
     username,
@@ -321,9 +341,10 @@ VALUES (
     $1,
     $2
 );
+```
 
-## 3. Watchlist Management
-### Query 012: Retrieve user watchlist after login
+### Query 12: Retrieve user watchlists after login
+```
 SELECT
     watchlist_id,
     watchlist_name,
@@ -335,8 +356,10 @@ WHERE user_id = (
     FROM "user"
     WHERE auth_user_id = auth.uid()
 );
+```
 
-### Query 013: Display Movies in Watchlist
+### Query 13: Display Movies in Watchlist
+```
 SELECT
     wi.watchlist_item_id,
     m.movie_id,
@@ -361,8 +384,10 @@ WHERE
     AND w.watchlist_id = $1
 
 ORDER BY wi.added_date DESC;
+```
 
-### Query 014: Add to watchlist
+### Query 14: Add to watchlist
+```
 INSERT INTO watchlist_items (
     watchlist_id,
     movie_id,
@@ -373,18 +398,25 @@ VALUES (
     $2,
     'PLANNED'
 );
+```
 
-### Query 015: Remove from watchlist
+### Query 15: Remove from watchlist
+```
 DELETE FROM watchlist_items
 WHERE watchlist_id = $1
 AND movie_id = $2;
+```
 
-### Query 016: Update status
+### Query 16: Update status
+```
 UPDATE watchlist_items
 SET status = 'COMPLETED'
 WHERE watchlist_id = $1
 AND movie_id = $2;
-### Query 017: Create watchlist
+```
+
+### Query 17: Create watchlist
+```
 INSERT INTO watchlist (
     user_id,
     watchlist_name,
@@ -395,8 +427,10 @@ VALUES (
     $2,
     $3
 );
+```
 
-### Query 018: Submit review
+### Query 18: Submit review
+```
 INSERT INTO reviews (
     user_id,
     movie_id,
@@ -411,8 +445,10 @@ VALUES (
     $4,
     $5
 );
+```
 
-### Query 019: Edit Review
+### Query 19: Edit Review
+```
 UPDATE reviews
 SET
     rating = $1,
@@ -421,13 +457,17 @@ SET
 WHERE
     user_id = $3
     AND movie_id = $4;
+```
 
-### Query 020: Delete review
+### Query 20: Delete review
+```
 DELETE FROM reviews
 WHERE user_id = $1
 AND movie_id = $2;
+```
 
-### Query 021: Average rating (VIEW)
+### Query 21: Average rating (VIEW)
+```
 CREATE VIEW movie_rating_summary AS
 SELECT
     m.movie_id,
@@ -442,8 +482,10 @@ GROUP BY
     m.movie_id,
     m.title,
     m.release_yr;
+```
 
-### Query 022: Review Timestamp
+### Query 22: Review Timestamp
+```
 CREATE OR REPLACE FUNCTION update_review_timestamp()
 RETURNS TRIGGER AS $$
 
@@ -463,3 +505,4 @@ BEFORE UPDATE ON reviews
 FOR EACH ROW
 
 EXECUTE FUNCTION update_review_timestamp();
+```

@@ -1,4 +1,7 @@
-# All queries to enable functionalities
+# Queries to enable functionalities
+
+### Query 01: Display All Movies 
+```
 SELECT
     m.movie_id,
     m.title,

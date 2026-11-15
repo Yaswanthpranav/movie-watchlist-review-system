@@ -367,3 +367,9 @@ Open the frontend URL in a browser, register or log in using Supabase Auth, and 
 
 CineTrack demonstrates the integration of relational database concepts into a practical full-stack web application. By combining React, FastAPI, Supabase PostgreSQL, and Supabase Auth, the project provides movie discovery, personal watchlist management, and community review functionality while demonstrating database design, integrity constraints, SQL queries, and authentication.
 
+
+## Final Submission
+
+- **Final Tag:** `final`
+- **Final Commit Hash:** `7a34030c1918b77c873ea7f983637e79f8660432`
+

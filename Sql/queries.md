@@ -1,7 +1,4 @@
-# CineTrack – SQL Query Documentation
-
-### Query 01: Display All Movies
-```
+# All queries to enable functionalities
 SELECT
     m.movie_id,
     m.title,
